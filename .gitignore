@@ -2,3 +2,9 @@
 *.css.map
 *.sass.map
 *.scss.map
+
+/node_modules/
+/public/build/
+/.vscode/
+
+.DS_Store
