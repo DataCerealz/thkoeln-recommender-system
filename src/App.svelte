@@ -1,30 +1,42 @@
 <script lang="ts">
-	export let name: string;
+	import Router from 'svelte-spa-router'
+
+	import Main from './routes/main.svelte'
+
+	const routes = {
+		// Exact path
+		'/': Main,
+
+		// Using named parameters, with last being optional
+		//'/author/:first/:last?': Author,
+
+		// Wildcard parameter
+		//'/book/*': Book,
+
+		// Catch-all
+		// This is optional, but if present it must be the last
+		//'*': NotFound,
+	}
 </script>
 
-<main>
-	<h1>Hello {name}!</h1>
-	<p>Visit the <a href="https://svelte.dev/tutorial">Svelte tutorial</a> to learn how to build Svelte apps.</p>
-</main>
+<body>
+	<Router {routes}/>
+</body>
 
 <style>
-	main {
-		text-align: center;
-		padding: 1em;
-		max-width: 240px;
-		margin: 0 auto;
+	body {
+		position: absolute;
+    	top: 0; 
+		right: 0; 
+		bottom: 0; 
+		left: 0;
+		background-color: #E5E5E5;
+		margin: 0;
+		padding: 0;
 	}
 
-	h1 {
-		color: #ff3e00;
-		text-transform: uppercase;
-		font-size: 4em;
-		font-weight: 100;
-	}
 
 	@media (min-width: 640px) {
-		main {
-			max-width: none;
-		}
+
 	}
 </style>
