@@ -3,6 +3,13 @@
 	import SearchContainer from "../components/SearchContainer.svelte";
 	import TopicContainer from "../components/TopicContainer.svelte";
 
+
+
+	// LOGIC FOR SEACHBAR
+
+
+	// LOGIC FOR TOPICS
+
 </script>
 
 <div class="wrapper">
@@ -22,7 +29,6 @@
 		justify-content: flex-start;
 		align-items: center;
 		overflow-y: auto;
-		border: 1px solid black;
 	}
 
 	.space {

@@ -11,7 +11,7 @@
 		text-align: center;
 		padding: 1em;
 		width: 70%;
-		min-height: 120px;
+		min-height: 110px;
 		background-color: #FFFFFF;
 		border-bottom-left-radius: 20px;
 		border-bottom-right-radius: 20px;

@@ -12,7 +12,6 @@
 		padding: 1em;
 		width: 70%;
 		min-height: 420px;
-		margin: 0 auto;
 		background-color: #FFFFFF;
 		border-radius: 20px;
 
