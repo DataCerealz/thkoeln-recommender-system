@@ -17,11 +17,13 @@ The important part of the folder structure is as followed
         +-- route.svelte
     +-- components
         +-- component.svelte
+    +-- data
 
 ```
 
 - New routes (pages) have to be added in the routes folder
 - New components have to be added in the componentens folder
+- JSON data has to be added in the data folder
 
 The business logic should be added in the parent component in App.svelte and the 
 needed data for the components should be passed as props.
