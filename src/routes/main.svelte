@@ -1,11 +1,8 @@
 <script lang="ts">
 	import Header from "../components/Header.svelte";
+	import Navigation from "../components/Navigation.svelte";
 	import SearchContainer from "../components/SearchContainer.svelte";
 	import TopicContainer from "../components/TopicContainer.svelte";
-
-
-
-	// LOGIC FOR SEACHBAR
 
 
 	// LOGIC FOR TOPICS
@@ -14,6 +11,8 @@
 
 <div class="wrapper">
 	<Header/>
+	<div class="space"></div>
+	<Navigation/>
 	<div class="space"></div>
 	<SearchContainer/>
 	<div class="space"></div>
@@ -32,7 +31,7 @@
 	}
 
 	.space {
-		min-height: 20px;
+		min-height: 0.25em;
 	}
 
 	@media (min-width: 640px) {
