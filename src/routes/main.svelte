@@ -11,8 +11,8 @@
 
 <div class="wrapper">
 	<Header/>
-	<div class="space"></div>
-	<Navigation/>
+<!-- 	<div class="space"></div>
+	<Navigation/> -->
 	<div class="space"></div>
 	<SearchContainer/>
 	<div class="space"></div>
