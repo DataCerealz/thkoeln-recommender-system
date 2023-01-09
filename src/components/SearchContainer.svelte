@@ -33,6 +33,9 @@ let searchFor = ''
 		width: 70%;
 		background-color: #FFFFFF;
 		border-radius: 20px;
+		-webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
+		-moz-box-sizing: border-box;    /* Firefox, other Gecko */
+		box-sizing: border-box;         /* Opera/IE 8+ */
 
 	}
 
