@@ -50,13 +50,22 @@ const data = [
     }
 ]
 
+let open = false
+
+function handleClick() {
+    open = !open
+}
+
+
 </script>
 
 <div class="container">
 	<h1>Themengebiete</h1>
 	<div class="topicContainer">
 		{#each data as item }
-			<TopicComponent data={item}/>
+			<TopicComponent 
+            data={item}
+            />
 		{/each}
 	</div>
 </div>
