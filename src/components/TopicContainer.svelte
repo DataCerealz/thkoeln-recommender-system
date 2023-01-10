@@ -1,6 +1,10 @@
 <script lang="ts">
 import TopicComponent from '../components/TopicComponent.svelte'
 
+/* import * as th_data from '../data/data.json'
+
+console.log(th_data) */
+
 const data = [
 	{
         "themengebiet": "Ingenieurwissenschaften", 
