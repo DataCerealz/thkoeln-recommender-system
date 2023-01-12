@@ -1,58 +1,11 @@
 <script lang="ts">
 import TopicComponent from '../components/TopicComponent.svelte'
 
-/* import * as th_data from '../data/data.json'
+import th_data from '../data/data.json'
 
-console.log(th_data) */
+console.log(th_data)
 
-const data = [
-	{
-        "themengebiet": "Ingenieurwissenschaften", 
-        "fächer": [ //Zweite Ebene sollen die Fächer der Themengebiete werden
-            {
-                "fach": "Software Entwicklung",
-                "professoren": [ //Dritte Ebene sind die zugehörigen Professoren zu den Fächern
-                    {
-                        "name": "w3school",
-                        "example": "example" // Hier können noch weitere sinnvolle Felder hinzugefügt werden bsp: Beschreibung falls machbar oder ähnliches
-                    }
-                ]
-            },
-            {
-                "fach": "Mathe",
-                "professoren": [ //Dritte Ebene sind die zugehörigen Professoren zu den Fächern
-                    {
-                        "name": "w3school",
-                        "example": "example" // Hier können noch weitere sinnvolle Felder hinzugefügt werden bsp: Beschreibung falls machbar oder ähnliches
-                    }
-                ]
-            }
-        ]
-    },
-    {
-        "themengebiet": "Naturwissenschaften", 
-        "fächer": [
-            {
-                "fach": "Chemie",
-                "professoren": [
-                    {
-                        "name": "w3school",
-                        "example": "example"
-                    }
-                ]
-            },
-            {
-                "fach": "Biologie",
-                "professoren": [
-                    {
-                        "name": "w3school",
-                        "example": "example"
-                    }
-                ]
-            }
-        ]
-    }
-]
+const data = th_data
 
 let open = false
 

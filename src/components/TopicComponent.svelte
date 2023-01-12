@@ -60,12 +60,12 @@ function onClickProf (prof) {
                 alt="arrow_down" class="image" />
             </button>
         </div>
-        {#if data["fächer"] && themengebiet_open}
-            {#each data["fächer"] as fach}
+        {#if data["faecher"] && themengebiet_open}
+            {#each data["faecher"] as fach}
             <div class="secondLevelContainer">
                 <div class="topLevelTopic">
                     <p>
-                        {fach["fach"]} {fach_list}
+                        {fach["fach"]}
                     </p>
                     <button 
                     class="image_container"

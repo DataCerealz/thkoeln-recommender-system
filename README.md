@@ -32,3 +32,10 @@ Links to the framework and the most important technology used:
 - https://svelte.dev/docs
 - https://svelte.dev/tutorial/basics
 - https://svelte.dev/tutorial/declaring-props --> passing props
+
+## Added dependecies
+
+### @rollup/plugin-json
+
+- Installation: npm install @rollup/plugin-json --save-dev
+- Tutorial for installation: https://www.youtube.com/watch?v=7CgBGwViuyM
