@@ -42,6 +42,18 @@ function onClickProf (prof) {
     prof_list = prof_list
 
 }
+
+function convertStringtoArray(str) {
+    const splitLinks = str.split('\n')
+    const newLinksArray = []
+
+    for (let i = 0; i < splitLinks.length; i++) {
+        const  newStr = splitLinks[i].replace(/'/g,'')
+        newLinksArray.push(newStr)
+    }
+    console.log(newLinksArray)
+}
+
 </script>
 
     <div 
@@ -85,24 +97,16 @@ function onClickProf (prof) {
                                 </p>
                                 <button 
                                 class="image_container"
-                                on:click={onClickProf(prof["name"])}
+                                on:click={onClickProf(prof["name"]+fach["fach"])}
                                 >
                                     <img 
                                     src={!prof_list.includes(prof["name"])? arrow_down:arrow_up} 
                                     alt="arrow_down" class="image" />
                                 </button>
                             </div>
-                            {#if prof_list.includes(prof["name"])}
+                            {#if prof_list.includes(prof["name"]+fach["fach"])}
                             <div class="infoContainer">
-                                <p>
-                                    Fakultät für Informations- und Kommunikationswissenschaften Institut für Translation und Mehrsprachige Kommunikation (ITMK)
-                                </p>
-                                <p>
-                                    Lehrgebiete
-                                </p>
-                                <p>
-                                    Forschungsgebiete
-                                </p>
+                                {convertStringtoArray(prof["links"])}
                             </div>
                             {/if}
                         </div>
