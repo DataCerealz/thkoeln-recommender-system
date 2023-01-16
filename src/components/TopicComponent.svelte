@@ -43,15 +43,31 @@ function onClickProf (prof) {
 
 }
 
+function checkLink(link) {
+
+    const pattern = 'http'
+    const domain = 'https://www.th-koeln.de'
+
+    if (!link.includes(pattern)) {
+        console.log(link)
+        const full_link = domain + link
+        return full_link
+    }
+
+    return link
+}
+
 function convertStringtoArray(str) {
     const splitLinks = str.split('\n')
     const newLinksArray = []
 
     for (let i = 0; i < splitLinks.length; i++) {
-        const  newStr = splitLinks[i].replace(/'/g,'')
-        newLinksArray.push(newStr)
+        const  clean_link = splitLinks[i].replace(/'|\[|\]|\s/g,'')
+        const validate_link = checkLink(clean_link)
+        newLinksArray.push(validate_link)
     }
     console.log(newLinksArray)
+    return newLinksArray
 }
 
 </script>
@@ -106,7 +122,11 @@ function convertStringtoArray(str) {
                             </div>
                             {#if prof_list.includes(prof["name"]+fach["fach"])}
                             <div class="infoContainer">
-                                {convertStringtoArray(prof["links"])}
+                                {#each convertStringtoArray(prof["links"]) as link}
+                                    <a href={link}>
+                                        {link}
+                                    </a>
+                                {/each}
                             </div>
                             {/if}
                         </div>
