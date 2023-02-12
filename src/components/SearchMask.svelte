@@ -1,13 +1,12 @@
 <script>
-    import {expert_people} from "../data/ExpertPeopleData";
-    import {expert_areas} from "../data/ExpertAreaData";
+    import {personenArray, themengebieteArray, faecherArray, data} from "../data/TestData";
     import AutocompleteItem from './AutocompleteItem.svelte';
 
     export let searchTerm = '';
 
     let filteredExperts = [];
     let rawResultExperts = [];
-    let experts = expert_areas.concat(expert_people)
+    let experts = personenArray.concat(themengebieteArray, faecherArray)
 
     let searchInput;
     let inputValue = "";
@@ -15,8 +14,78 @@
         filteredExperts = [];
         highlightedItemIndex = null;
     } else {
-        // this is optional and updates the displayed results list (not autocomplete list) constantly while typing
-        filterExperts()
+        // this is optional and would constantly update the results without submit press
+        // filterExperts()
+        // searchTerm = [...new Set(getExpertIds(searchResultTerms))]
+    }
+
+    const getPersonIdsFromThemengebiet = (searchedThemengebiet) => {
+
+        let personIds = []
+
+        for (let themengebietIndex = 0; themengebietIndex < data.length; themengebietIndex++) {
+            if (data[themengebietIndex].themengebiet === searchedThemengebiet) {
+                for (let o = 0; o < data[themengebietIndex].faecher.length; o++) {
+                    let currentFach = data[themengebietIndex].faecher[o]
+                    for (let h = 0; h < currentFach.professoren.length; h++) {
+                        let professorId = currentFach.professoren[h].id
+                        personIds.push(professorId)
+                    }
+                }
+            }
+        }
+
+        return personIds
+    }
+
+    const getPersonIdsFromFach = (searchedFach) => {
+        let personIds = []
+
+        for (let themengebietIndex = 0; themengebietIndex < data.length; themengebietIndex++) {
+            for (let o = 0; o < data[themengebietIndex].faecher.length; o++) {
+                let currentFach = data[themengebietIndex].faecher[o]
+                if (data[themengebietIndex].faecher[o].fach === searchedFach) {
+                    for (let h = 0; h < currentFach.professoren.length; h++) {
+                        let professorId = currentFach.professoren[h].id
+                        personIds.push(professorId)
+                    }
+                }
+            }
+        }
+
+        return personIds
+    }
+
+    const getPersonIdsFromPerson = (searchedPerson) => {
+        let personIds = []
+
+        for (let themengebietIndex = 0; themengebietIndex < data.length; themengebietIndex++) {
+            for (let o = 0; o < data[themengebietIndex].faecher.length; o++) {
+                let currentFach = data[themengebietIndex].faecher[o]
+                for (let h = 0; h < currentFach.professoren.length; h++) {
+                    if (currentFach.professoren[h].name === searchedPerson) {
+                        let professorId = currentFach.professoren[h].id
+                        personIds.push(professorId)
+                    }
+                }
+            }
+        }
+
+        return personIds
+    }
+
+    const getExpertIds = (searchTermArray) => {
+        let foundIds = []
+        searchTermArray.forEach(searchTermItem => {
+            if (personenArray.indexOf(searchTermItem) > -1) {
+                foundIds = foundIds.concat(getPersonIdsFromPerson(searchTermItem))
+            } else if (themengebieteArray.indexOf(searchTermItem) > -1) {
+                foundIds = foundIds.concat(getPersonIdsFromThemengebiet(searchTermItem))
+            } else if (faecherArray.indexOf(searchTermItem) > -1) {
+                foundIds = foundIds.concat(getPersonIdsFromFach(searchTermItem))
+            }
+        })
+        return foundIds
     }
 
     const filterExperts = () => {
@@ -32,7 +101,7 @@
         }
         filteredExperts = matchArr;
         rawResultExperts = exportArr;
-        searchTerm = rawResultExperts;
+        return rawResultExperts
     }
 
     function clearSearch() {
@@ -48,7 +117,8 @@
 
     const submitSearch = () => {
         if (inputValue) {
-            filterExperts()
+            let searchResultTerms = filterExperts()
+            searchTerm = [...new Set(getExpertIds(searchResultTerms))]
             clearSearch();
         } else {
             alert("Keine Eingabe in der Suchmaske.")
@@ -58,9 +128,7 @@
     const makeMatchingCharsBold = (str) => {
         let re = new RegExp(inputValue, 'gi');
         let matched = str.match(re); // return type array
-        // -> the matched array if len = 1 works but len > 1 breaks -> see comment below
         let boldWrappedMatch = `<strong>${matched}</strong>`;
-        // todo: if there are multiple matches in a list item they don't get printed bold
         return str.replaceAll(matched, boldWrappedMatch);
     }
 
@@ -97,7 +165,7 @@
     </div>
     {#if filteredExperts.length > 0}
         <ul id="autocomplete-items-list">
-            {#each filteredExperts as expert, i} <!-- todo evaluate: limit amount of results (maybe scrollable div?) -->
+            {#each filteredExperts as expert, i}
                 <AutocompleteItem itemLabel={expert} selected={i === highlightedItemIndex}
                                   on:click={() => {setInputAndSubmit(expert)}}/>
             {/each}
