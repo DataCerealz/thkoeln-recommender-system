@@ -92,7 +92,7 @@ function convertStringtoArray(str) {
             {#each data["faecher"] as fach}
             <div class="secondLevelContainer">
                 <div class="topLevelTopic">
-                    <p>
+                    <p class="fachTitle">
                         {fach["fach"]}
                     </p>
                     <button 
@@ -116,17 +116,24 @@ function convertStringtoArray(str) {
                                 on:click={onClickProf(prof["name"]+fach["fach"])}
                                 >
                                     <img 
-                                    src={!prof_list.includes(prof["name"])? arrow_down:arrow_up} 
+                                    src={!prof_list.includes(prof["name"]+fach["fach"])? arrow_down:arrow_up} 
                                     alt="arrow_down" class="image" />
                                 </button>
                             </div>
                             {#if prof_list.includes(prof["name"]+fach["fach"])}
                             <div class="infoContainer">
-                                {#each convertStringtoArray(prof["links"]) as link}
-                                    <a href={link}>
-                                        {link}
-                                    </a>
-                                {/each}
+                                <div style="text-align:left;">
+                                    Relevante Links:
+                                </div>
+                                <ul style="overflow-x:auto">
+                                    {#each convertStringtoArray(prof["links"]) as link}
+                                    <li style="text-align: left; margin: 10px;">
+                                        <a href={link}>
+                                            {link}
+                                        </a>
+                                    </li>
+                                    {/each}
+                                </ul>
                             </div>
                             {/if}
                         </div>
@@ -190,6 +197,12 @@ function convertStringtoArray(str) {
         align-items: center;
     }
 
+    .fachTitle {
+        width: 80%;
+        text-align: left;
+        overflow-x: auto;
+    }
+
     .infoContainer {
         width: 100%;
 		display: flex;
@@ -198,7 +211,7 @@ function convertStringtoArray(str) {
     }
 
     .image_container {
-        width: 45px;
+        max-width: 45px;
         height: 45px;
         border: none;
         background-color: transparent;
