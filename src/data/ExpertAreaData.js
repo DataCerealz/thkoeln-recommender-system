@@ -1,1 +1,0 @@
-export const expert_areas = ["Anguilla","Antigua and Barbuda","Argentina","Armenia","Aruba","Australia","Austria"]
