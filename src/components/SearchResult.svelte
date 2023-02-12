@@ -1,8 +1,18 @@
 <script>
-    export let searchResult;
+
+    export let professorDetails;
+
 </script>
+
+<div>
+    {professorDetails.name}
+</div>
+
+{#each professorDetails.links as link}
+<p>
+    {link}
+</p>
+{/each}
 
 <style>
 </style>
-
-<li>You searched for: {searchResult}</li>

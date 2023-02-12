@@ -1,6 +1,7 @@
 <script lang="ts">
     import SearchMask from "./SearchMask.svelte";
     import SearchResult from "./SearchResult.svelte";
+
     let searchFor = ''
     </script>
     
@@ -14,8 +15,8 @@ Durch Eingabe eines Forschungs-/Lehrgebietes in die Suchmaske erhalten Sie eine 
         <SearchMask bind:searchTerm={searchFor}/>
         <ul>
             {#if searchFor}
-            {#each searchFor as expert}
-                <SearchResult searchResult={expert} />
+            {#each searchFor as expertId}
+                <SearchResult professorDetails={expertId} />
             {/each}
         {/if}
     </ul>

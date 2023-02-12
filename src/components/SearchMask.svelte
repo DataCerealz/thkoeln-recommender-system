@@ -16,7 +16,39 @@
     } else {
         // this is optional and would constantly update the results without submit press
         // filterExperts()
-        // searchTerm = [...new Set(getExpertIds(searchResultTerms))]
+        // searchTerm = calculateSearchResultObject([...new Set(getExpertIds(searchResultTerms))])
+    }
+
+
+    const getProfessorDetailsFromId = (searchId) => {
+        let professorDetails = {}
+
+        for (let themengebietIndex = 0; themengebietIndex < data.length; themengebietIndex++) {
+            for (let o = 0; o < data[themengebietIndex].faecher.length; o++) {
+                let currentFach = data[themengebietIndex].faecher[o]
+                for (let h = 0; h < currentFach.professoren.length; h++) {
+                    if (currentFach.professoren[h].id === searchId) {
+                        professorDetails['name'] = currentFach.professoren[h].name
+                        let professorLinks = []
+                        for (let linkIndex = 0; linkIndex < currentFach.professoren[h].links.length; linkIndex++) {
+                            professorLinks.push(currentFach.professoren[h].links[linkIndex])
+                        }
+                        professorDetails['links'] = professorLinks
+                        return professorDetails
+                    }
+                }
+            }
+        }
+        return professorDetails
+    }
+
+    const calculateSearchResultObject = (searchArray) => {
+        let resultObjectArray = []
+        for (let index = 0; index < searchArray.length; index++) {
+            let profDetails = getProfessorDetailsFromId(searchArray[index])
+            resultObjectArray.push(profDetails)
+        }
+        return resultObjectArray
     }
 
     const getPersonIdsFromThemengebiet = (searchedThemengebiet) => {
@@ -118,7 +150,7 @@
     const submitSearch = () => {
         if (inputValue) {
             let searchResultTerms = filterExperts()
-            searchTerm = [...new Set(getExpertIds(searchResultTerms))]
+            searchTerm = calculateSearchResultObject([...new Set(getExpertIds(searchResultTerms))])
             clearSearch();
         } else {
             alert("Keine Eingabe in der Suchmaske.")
