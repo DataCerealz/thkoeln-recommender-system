@@ -2133,12 +2133,6 @@
              ]
           },
           {
-             "fach":"nan",
-             "professoren":[
-                
-             ]
-          },
-          {
              "fach":"Entwicklung Algorithmus",
              "professoren":[
                 {
@@ -10438,12 +10432,6 @@
                 }
              ]
           }
-       ]
-    },
-    {
-       "themengebiet":"nan",
-       "faecher":[
-          
        ]
     },
     {

@@ -57,9 +57,9 @@ function handleClick() {
     }
 
 
-	@media (min-width: 640px) {
+	@media only screen and (max-width: 992px) {
 		.container {
-			max-width: none;
+			width: 100%;
 		}
 	}
 </style>
