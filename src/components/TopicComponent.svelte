@@ -1,23 +1,24 @@
 <script>
 
+//imports
 let arrow_down = "./images/arrow_down.png";
 let arrow_up = "./images/arrow_up.png";
 
 export let data;
 
+//variables needed for open and close
 let themengebiet_open = false
-let fach_open = false
-let prof_open = false
-
 let fach_list = []
 let prof_list = []
 
+//function to open "themengebiete"
 function onClickThemen () {
     themengebiet_open = !themengebiet_open
     console.log(data)
     console.log(fach_list)
 }
 
+//function to open "fach"
 function onClickFach(fach) {
 
     if (fach_list.includes(fach)) {
@@ -30,6 +31,7 @@ function onClickFach(fach) {
     fach_list = fach_list
 }
 
+//function to open "prof"
 function onClickProf (prof) {
 
     if (prof_list.includes(prof)) {
@@ -43,6 +45,9 @@ function onClickProf (prof) {
 
 }
 
+
+//links in data are partly without domain
+//function to ad domain to links if needed
 function checkLink(link) {
 
     const pattern = 'http'
@@ -57,6 +62,8 @@ function checkLink(link) {
     return link
 }
 
+//The array of the links is converted as a string und the seperator is "\n" instead of ","
+//So this function is converting the link arrays into valid arrays
 function convertStringtoArray(str) {
     const splitLinks = str.split('\n')
     const newLinksArray = []
@@ -76,7 +83,7 @@ function convertStringtoArray(str) {
     class="topLevelContainer"
     >
         <div class="topLevelTopic">
-            <p>
+            <p class="type_title">
                 {data["themengebiet"]}
             </p>
             <button 
@@ -108,7 +115,7 @@ function convertStringtoArray(str) {
                     {#each fach["professoren"] as prof}
                         <div class="thirdLevelContainer">
                             <div class="topLevelTopic">
-                                <p>
+                                <p class="type_title">
                                     {prof["name"]}
                                 </p>
                                 <button 
@@ -201,6 +208,7 @@ function convertStringtoArray(str) {
         width: 80%;
         text-align: left;
         overflow-x: auto;
+        font-size: 20px;
     }
 
     .infoContainer {
@@ -220,6 +228,10 @@ function convertStringtoArray(str) {
 
     .image {
         width: 100%;
+    }
+
+    .type_title{
+        font-size: 20px;
     }
 
 
