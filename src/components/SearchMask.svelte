@@ -1,5 +1,5 @@
 <script>
-    import {personenArray, themengebieteArray, faecherArray, data} from "../data/TestData";
+    import {personenArray, themengebieteArray, faecherArray, data} from "../data/data";
     import AutocompleteItem from './AutocompleteItem.svelte';
 
     export let searchTerm = '';
