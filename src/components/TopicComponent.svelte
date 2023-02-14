@@ -133,7 +133,7 @@ function convertStringtoArray(str) {
                                     Relevante Links:
                                 </div>
                                 <ul style="overflow-x:auto">
-                                    {#each convertStringtoArray(prof["links"]) as link}
+                                    {#each prof["links"] as link}
                                     <li style="text-align: left; margin: 10px;">
                                         <a href={link}>
                                             {link}
