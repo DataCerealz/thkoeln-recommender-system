@@ -1,25 +1,15 @@
 <script lang="ts">
 import TopicComponent from '../components/TopicComponent.svelte'
+import {data} from "../data/data";
 
-import th_data from '../data/data.json'
-
-console.log(th_data)
-
-const data = th_data
-
-let open = false
-
-function handleClick() {
-    open = !open
-}
-
+const th_data = data
 
 </script>
 
 <div class="container">
 	<h1>Themengebiete</h1>
 	<div class="topicContainer">
-		{#each data as item }
+		{#each th_data as item }
 			<TopicComponent 
             data={item}
             />
@@ -57,9 +47,9 @@ function handleClick() {
     }
 
 
-	@media (min-width: 640px) {
+	@media only screen and (max-width: 992px) {
 		.container {
-			max-width: none;
+			width: 100%;
 		}
 	}
 </style>

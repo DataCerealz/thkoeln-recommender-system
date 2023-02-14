@@ -42,4 +42,10 @@
 	  width: 100%;
 	  margin-top: -30px;
 	}
+
+	@media only screen and (max-width: 992px) {
+		.header-container {
+			width: 100%;
+		}
+	}
   </style>

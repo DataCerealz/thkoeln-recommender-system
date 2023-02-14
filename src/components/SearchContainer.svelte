@@ -56,10 +56,10 @@ Durch Eingabe eines Forschungs-/Lehrgebietes in die Suchmaske erhalten Sie eine 
         }
     
     
-        @media (min-width: 640px) {
-            .container {
-                max-width: none;
-            }
-        }
+        @media only screen and (max-width: 992px) {
+		.container {
+			width: 100%;
+		}
+	}
     </style>
     
