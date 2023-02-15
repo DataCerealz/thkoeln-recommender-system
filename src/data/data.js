@@ -1,6 +1,18 @@
 import * as json_data from './cleaned_data.json'
 export const data = json_data.default
 
+export const _data = data.reduce((acc, cur) => {
+    const existingObj = acc.find(obj => obj.Hauptthema === cur.Hauptthema && obj.Unterthemen.Unterthema === cur.Unterthemen.Unterthema);
+    if (existingObj) {
+      existingObj.Unterthemen.Professoren = existingObj.Unterthemen.Professoren.concat(cur.Unterthemen.Professoren);
+    } else {
+      acc.push(cur);
+    }
+    return acc;
+  }, []);
+
+  
+
 let themengebieteData = []
 
 let faecherData = []

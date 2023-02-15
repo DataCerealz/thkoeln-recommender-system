@@ -1,8 +1,8 @@
 <script lang="ts">
 import TopicComponent from '../components/TopicComponent.svelte'
-import {data} from "../data/data";
+import {data, _data} from "../data/data";
 
-const th_data = data
+const th_data = _data
 
 </script>
 

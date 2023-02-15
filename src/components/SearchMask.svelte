@@ -1,5 +1,5 @@
 <script>
-    import {personenArray, themengebieteArray, faecherArray, data, schlagwoerterArray} from "../data/data";
+    import {personenArray, themengebieteArray, faecherArray, _data, schlagwoerterArray} from "../data/data";
     import AutocompleteItem from './AutocompleteItem.svelte';
 
     export let searchTerm = '';
@@ -22,8 +22,8 @@
     const getAllSwForProf = (profId) => {
         let allSchlagworte = []
 
-        for (let themengebietIndex = 0; themengebietIndex < data.length; themengebietIndex++) {
-            let currentFach = data[themengebietIndex].Unterthemen
+        for (let themengebietIndex = 0; themengebietIndex < _data.length; themengebietIndex++) {
+            let currentFach = _data[themengebietIndex].Unterthemen
             for (let h = 0; h < currentFach.Professoren.length; h++) {
                 if (currentFach.Professoren[h].Id === profId) {
                     for (let swIndex = 0; swIndex < currentFach.Professoren[h].Schlagworte.length; swIndex++) {
@@ -40,9 +40,9 @@
     const getProfessorDetailsFromId = (searchId) => {
         let professorDetails = {}
 
-        for (let themengebietIndex = 0; themengebietIndex < data.length; themengebietIndex++) {
+        for (let themengebietIndex = 0; themengebietIndex < _data.length; themengebietIndex++) {
 
-            let currentFach = data[themengebietIndex].Unterthemen
+            let currentFach = _data[themengebietIndex].Unterthemen
             for (let profIndex = 0; profIndex < currentFach.Professoren.length; profIndex++) {
                 if (currentFach.Professoren[profIndex].Id === searchId) {
                     professorDetails['name'] = currentFach.Professoren[profIndex].Name
@@ -71,9 +71,9 @@
 
         let personIds = []
 
-        for (let themengebietIndex = 0; themengebietIndex < data.length; themengebietIndex++) {
-            if (data[themengebietIndex].Hauptthema === searchedThemengebiet) {
-                let currentFach = data[themengebietIndex].Unterthemen
+        for (let themengebietIndex = 0; themengebietIndex < _data.length; themengebietIndex++) {
+            if (_data[themengebietIndex].Hauptthema === searchedThemengebiet) {
+                let currentFach = _data[themengebietIndex].Unterthemen
                 for (let h = 0; h < currentFach.Professoren.length; h++) {
                     let professorId = currentFach.Professoren[h].Id
                     personIds.push(professorId)
@@ -87,9 +87,9 @@
     const getPersonIdsFromFach = (searchedFach) => {
         let personIds = []
 
-        for (let themengebietIndex = 0; themengebietIndex < data.length; themengebietIndex++) {
-            let currentFach = data[themengebietIndex].Unterthemen
-            if (data[themengebietIndex].Unterthemen.Unterthema === searchedFach) {
+        for (let themengebietIndex = 0; themengebietIndex < _data.length; themengebietIndex++) {
+            let currentFach = _data[themengebietIndex].Unterthemen
+            if (_data[themengebietIndex].Unterthemen.Unterthema === searchedFach) {
                 for (let h = 0; h < currentFach.Professoren.length; h++) {
                     let professorId = currentFach.Professoren[h].Id
                     personIds.push(professorId)
@@ -103,8 +103,8 @@
     const getPersonIdsFromPerson = (searchedPerson) => {
         let personIds = []
 
-        for (let themengebietIndex = 0; themengebietIndex < data.length; themengebietIndex++) {
-            let currentFach = data[themengebietIndex].Unterthemen
+        for (let themengebietIndex = 0; themengebietIndex < _data.length; themengebietIndex++) {
+            let currentFach = _data[themengebietIndex].Unterthemen
             for (let h = 0; h < currentFach.Professoren.length; h++) {
                 if (currentFach.Professoren[h].Name === searchedPerson) {
                     let professorId = currentFach.Professoren[h].Id
@@ -119,8 +119,8 @@
     const getPersonIdsFromSchlagwort = (searchedSchlagwort) => {
         let personIds = []
 
-        for (let themengebietIndex = 0; themengebietIndex < data.length; themengebietIndex++) {
-            let currentFach = data[themengebietIndex].Unterthemen
+        for (let themengebietIndex = 0; themengebietIndex < _data.length; themengebietIndex++) {
+            let currentFach = _data[themengebietIndex].Unterthemen
             for (let h = 0; h < currentFach.Professoren.length; h++) {
                 for (let swIndex = 0; swIndex < currentFach.Professoren[h].Schlagworte.length; swIndex++) {
                     if (currentFach.Professoren[h].Schlagworte[swIndex] === searchedSchlagwort) {
