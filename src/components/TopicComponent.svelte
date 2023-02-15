@@ -45,38 +45,6 @@ function onClickProf (prof) {
 
 }
 
-
-//links in data are partly without domain
-//function to ad domain to links if needed
-function checkLink(link) {
-
-    const pattern = 'http'
-    const domain = 'https://www.th-koeln.de'
-
-    if (!link.includes(pattern)) {
-        console.log(link)
-        const full_link = domain + link
-        return full_link
-    }
-
-    return link
-}
-
-//The array of the links is converted as a string und the seperator is "\n" instead of ","
-//So this function is converting the link arrays into valid arrays
-function convertStringtoArray(str) {
-    const splitLinks = str.split('\n')
-    const newLinksArray = []
-
-    for (let i = 0; i < splitLinks.length; i++) {
-        const  clean_link = splitLinks[i].replace(/'|\[|\]|\s/g,'')
-        const validate_link = checkLink(clean_link)
-        newLinksArray.push(validate_link)
-    }
-    console.log(newLinksArray)
-    return newLinksArray
-}
-
 </script>
 
     <div 
@@ -84,7 +52,7 @@ function convertStringtoArray(str) {
     >
         <div class="topLevelTopic">
             <p class="type_title">
-                {data["themengebiet"]}
+                {data["Hauptthema"]}
             </p>
             <button 
             class="image_container"
@@ -95,45 +63,58 @@ function convertStringtoArray(str) {
                 alt="arrow_down" class="image" />
             </button>
         </div>
-        {#if data["faecher"] && themengebiet_open}
-            {#each data["faecher"] as fach}
+        {#if data["Unterthemen"] && themengebiet_open}
             <div class="secondLevelContainer">
                 <div class="topLevelTopic">
                     <p class="fachTitle">
-                        {fach["fach"]}
+                        {data["Unterthemen"]["Unterthema"]}
                     </p>
                     <button 
                     class="image_container"
-                    on:click={() => onClickFach(fach["fach"])}
+                    on:click={() => onClickFach(data["Unterthemen"]["Unterthema"])}
                     >
                         <img 
-                        src={!fach_list.includes(fach["fach"])? arrow_down:arrow_up} 
+                        src={!fach_list.includes(data["Unterthemen"]["Unterthema"])? arrow_down:arrow_up} 
                         alt="arrow_down" class="image" />
                     </button>
                 </div>
-                {#if fach["professoren"] && fach_list.includes(fach["fach"])}
-                    {#each fach["professoren"] as prof}
+                {#if data["Unterthemen"]["Professoren"] && fach_list.includes(data["Unterthemen"]["Unterthema"])}
+                    {#each data["Unterthemen"]["Professoren"] as prof}
                         <div class="thirdLevelContainer">
                             <div class="topLevelTopic">
                                 <p class="type_title">
-                                    {prof["name"]}
+                                    {prof["Name"]}
                                 </p>
                                 <button 
                                 class="image_container"
-                                on:click={onClickProf(prof["name"]+fach["fach"])}
+                                on:click={onClickProf(prof["Name"]+data["Unterthemen"]["Unterthema"])}
                                 >
                                     <img 
-                                    src={!prof_list.includes(prof["name"]+fach["fach"])? arrow_down:arrow_up} 
+                                    src={!prof_list.includes(prof["Name"]+data["Unterthemen"]["Unterthema"])? arrow_down:arrow_up} 
                                     alt="arrow_down" class="image" />
                                 </button>
                             </div>
-                            {#if prof_list.includes(prof["name"]+fach["fach"])}
+                            {#if prof_list.includes(prof["Name"]+data["Unterthemen"]["Unterthema"])}
                             <div class="infoContainer">
+                                <div style="text-align:left;">
+                                    Email:
+                                </div>
+                                <p style="text-align: left; margin: 10px;">
+                                    {prof["Email"]}
+                                </p>
+                                <div style="text-align:left;">
+                                    Personenseite:
+                                </div>
+                                <li style="text-align: left; margin: 10px;">
+                                    <a href={prof["Kontaktseite"]}>
+                                        {prof["Kontaktseite"]}
+                                    </a>
+                                </li>
                                 <div style="text-align:left;">
                                     Relevante Links:
                                 </div>
                                 <ul style="overflow-x:auto">
-                                    {#each prof["links"] as link}
+                                    {#each prof["Links"] as link}
                                     <li style="text-align: left; margin: 10px;">
                                         <a href={link}>
                                             {link}
@@ -147,7 +128,6 @@ function convertStringtoArray(str) {
                     {/each}
                 {/if}
             </div>
-            {/each}
         {/if}
     </div>
 
