@@ -96,29 +96,41 @@ function onClickProf (prof) {
                             </div>
                             {#if prof_list.includes(prof["Name"]+data["Unterthemen"]["Unterthema"])}
                             <div class="infoContainer">
-                                <div style="text-align:left;">
+                                <h3 style="text-align:left;">
                                     Email:
-                                </div>
+                                </h3>
                                 <p style="text-align: left; margin: 10px;">
                                     {prof["Email"]}
                                 </p>
-                                <div style="text-align:left;">
+                                <h3 style="text-align:left;">
                                     Personenseite:
-                                </div>
+                                </h3>
                                 <li style="text-align: left; margin: 10px;">
                                     <a href={prof["Kontaktseite"]}>
                                         {prof["Kontaktseite"]}
                                     </a>
                                 </li>
-                                <div style="text-align:left;">
+                                <h3 style="text-align:left;">
                                     Relevante Links:
-                                </div>
+                                </h3>
                                 <ul style="overflow-x:auto">
                                     {#each prof["Links"] as link}
                                     <li style="text-align: left; margin: 10px;">
                                         <a href={link}>
                                             {link}
                                         </a>
+                                    </li>
+                                    {/each}
+                                </ul>
+                                <h3 style="text-align:left;">
+                                    Schlagworte:
+                                </h3>
+                                <ul style="overflow-x:auto">
+                                    {#each prof["Schlagworte"] as wort}
+                                    <li style="text-align: left; margin: 10px;">
+                                        <p>
+                                            {wort}
+                                        <p>
                                     </li>
                                     {/each}
                                 </ul>

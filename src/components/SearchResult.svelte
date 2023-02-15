@@ -30,7 +30,7 @@
         padding-left: 30px;
         padding-right: 30px;
         margin-bottom: 10px;
-        background-color: #F8F8F8;
+        background-color: #C3C3C3;
         -webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
 		-moz-box-sizing: border-box;    /* Firefox, other Gecko */
 		box-sizing: border-box;         /* Opera/IE 8+ */
@@ -44,7 +44,7 @@
         padding-left: 30px;
         padding-right: 30px;
         margin-bottom: 10px;
-        background-color: #E7E7E7;
+        background-color: #C3C3C3;
         -webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
 		-moz-box-sizing: border-box;    /* Firefox, other Gecko */
 		box-sizing: border-box;         /* Opera/IE 8+ */
@@ -125,23 +125,23 @@ class="topLevelContainer"
         <div class="secondLevelContainer">
             <div class="thirdLevelContainer">
                 <div class="infoContainer">
-                    <div style="text-align:left;">
+                    <h3 style="text-align:left;">
                         Email:
-                    </div>
+                    </h3>
                     <p style="text-align: left; margin: 10px;">
                         {professorDetails["Email"]}
                     </p>
-                    <div style="text-align:left;">
+                    <h3 style="text-align:left;">
                         Personenseite:
-                    </div>
+                    </h3>
                     <li style="text-align: left; margin: 10px;">
                         <a href={professorDetails["Kontaktseite"]}>
                             {professorDetails["Kontaktseite"]}
                         </a>
                     </li>
-                    <div style="text-align:left;">
+                    <h3 style="text-align:left;">
                         Relevante Links:
-                    </div>
+                    </h3>
                     <ul style="overflow-x:auto">
                         {#each professorDetails["links"] as link}
                         <li style="text-align: left; margin: 10px;">
@@ -151,15 +151,15 @@ class="topLevelContainer"
                         </li>
                         {/each}
                     </ul>
-                    <div style="text-align:left;">
+                    <h3 style="text-align:left;">
                         Schlagworte:
-                    </div>
+                    </h3>
                     <ul style="overflow-x:auto">
                         {#each professorDetails["schlagworte"] as wort}
                         <li style="text-align: left; margin: 10px;">
-                            <a href={wort}>
+                            <p>
                                 {wort}
-                            </a>
+                            <p>
                         </li>
                         {/each}
                     </ul>

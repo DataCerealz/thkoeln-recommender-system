@@ -13,13 +13,13 @@
 Durch Eingabe eines Forschungs-/Lehrgebietes in die Suchmaske erhalten Sie eine Liste der Experten für das gesuchte Fachgebiet mit Angaben zu Lehre, Forschung und Themengebiet.
         </p>
         <SearchMask bind:searchTerm={searchFor}/>
-        <ul>
+        <div style="display:flex; flex-direction:column; width:100%;margin-top: 10px;">
             {#if searchFor}
             {#each searchFor as expertId}
                 <SearchResult professorDetails={expertId} />
             {/each}
         {/if}
-    </ul>
+        </div>
     </div>
     
     
