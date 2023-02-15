@@ -16,6 +16,8 @@ const merge_data = data.reduce((acc, cur) => {
   console.log(merge_data)
 
 
+
+//merge professoren data with the same "Hauptthema" und "Unterthema are"
 function mergeObjects(data) {
     const mergedData = [];
   
@@ -52,7 +54,21 @@ function mergeObjects(data) {
     return mergedData;
   }
   
-export const _data = mergeObjects(merge_data);
+
+const output = [];
+
+export const _data = mergeObjects(merge_data).forEach((item) => {
+  const existingItem = output.find((outputItem) => outputItem.Hauptthema === item.Hauptthema);
+  if (existingItem) {
+    existingItem.Unterthemen.push(item.Unterthemen);
+  } else {
+    output.push({
+      Hauptthema: item.Hauptthema,
+      Unterthemen: [item.Unterthemen]
+    });
+  }
+});
+
   
 
 let themengebieteData = []
