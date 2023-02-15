@@ -53,9 +53,11 @@ function mergeObjects(data) {
   
     return mergedData;
   }
+
+export const _data = mergeObjects(merge_data)
   
 
-const output = [];
+/* const output = [];
 
 export const _data = mergeObjects(merge_data).forEach((item) => {
   const existingItem = output.find((outputItem) => outputItem.Hauptthema === item.Hauptthema);
@@ -67,7 +69,7 @@ export const _data = mergeObjects(merge_data).forEach((item) => {
       Unterthemen: [item.Unterthemen]
     });
   }
-});
+}); */
 
   
 
