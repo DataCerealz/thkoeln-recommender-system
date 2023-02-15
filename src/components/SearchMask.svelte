@@ -48,6 +48,8 @@
                     professorDetails['name'] = currentFach.Professoren[profIndex].Name
                     professorDetails['links'] = currentFach.Professoren[profIndex].Links
                     professorDetails['schlagworte'] = getAllSwForProf(searchId)
+                    professorDetails['Email'] = currentFach.Professoren[profIndex].Email
+                    professorDetails['Kontaktseite'] = currentFach.Professoren[profIndex].Kontaktseite
                     return professorDetails
                 }
             }
