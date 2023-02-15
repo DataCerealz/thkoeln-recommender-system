@@ -1,7 +1,9 @@
 import * as json_data from './cleaned_data.json'
 export const data = json_data.default
 
-export const _data = data.reduce((acc, cur) => {
+
+//merge data with duplicate "Hauptthema" and "Unterthema"
+const merge_data = data.reduce((acc, cur) => {
     const existingObj = acc.find(obj => obj.Hauptthema === cur.Hauptthema && obj.Unterthemen.Unterthema === cur.Unterthemen.Unterthema);
     if (existingObj) {
       existingObj.Unterthemen.Professoren = existingObj.Unterthemen.Professoren.concat(cur.Unterthemen.Professoren);
@@ -11,6 +13,46 @@ export const _data = data.reduce((acc, cur) => {
     return acc;
   }, []);
 
+  console.log(merge_data)
+
+
+function mergeObjects(data) {
+    const mergedData = [];
+  
+    data.forEach((entry) => {
+      const profsByHauptthemaAndUnterthema = {};
+      const profsToPush = [];
+  
+      entry.Unterthemen.Professoren.forEach((prof) => {
+        const { Id, Schlagworte } = prof;
+        const key = `${entry.Hauptthema}${entry.Unterthemen.Unterthema}${Id}`;
+  
+        if (!profsByHauptthemaAndUnterthema[key]) {
+          profsByHauptthemaAndUnterthema[key] = { ...prof, Schlagworte: [...Schlagworte] };
+        } else {
+          profsByHauptthemaAndUnterthema[key].Schlagworte = [
+            ...new Set([...profsByHauptthemaAndUnterthema[key].Schlagworte, ...Schlagworte])
+          ];
+        }
+      });
+  
+      Object.values(profsByHauptthemaAndUnterthema).forEach((prof) => {
+        profsToPush.push(prof);
+      });
+  
+      mergedData.push({
+        Hauptthema: entry.Hauptthema,
+        Unterthemen: {
+          Professoren: profsToPush,
+          Unterthema: entry.Unterthemen.Unterthema
+        }
+      });
+    });
+  
+    return mergedData;
+  }
+  
+export const _data = mergeObjects(merge_data);
   
 
 let themengebieteData = []
