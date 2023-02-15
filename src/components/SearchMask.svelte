@@ -1,12 +1,12 @@
 <script>
-    import {personenArray, themengebieteArray, faecherArray, data} from "../data/data";
+    import {personenArray, themengebieteArray, faecherArray, data, schlagwoerterArray} from "../data/data";
     import AutocompleteItem from './AutocompleteItem.svelte';
 
     export let searchTerm = '';
 
     let filteredExperts = [];
     let rawResultExperts = [];
-    let experts = personenArray.concat(themengebieteArray, faecherArray)
+    let experts = personenArray.concat(themengebieteArray, faecherArray, schlagwoerterArray)
 
     let searchInput;
     let inputValue = "";
@@ -19,25 +19,41 @@
         // searchTerm = calculateSearchResultObject([...new Set(getExpertIds(searchResultTerms))])
     }
 
+    const getAllSwForProf = (profId) => {
+        let allSchlagworte = []
+
+        for (let themengebietIndex = 0; themengebietIndex < data.length; themengebietIndex++) {
+            let currentFach = data[themengebietIndex].Unterthemen
+            for (let h = 0; h < currentFach.Professoren.length; h++) {
+                if (currentFach.Professoren[h].Id === profId) {
+                    for (let swIndex = 0; swIndex < currentFach.Professoren[h].Schlagworte.length; swIndex++) {
+                        let currentSchlagwort = currentFach.Professoren[h].Schlagworte[swIndex]
+                        allSchlagworte.push(currentSchlagwort)
+                    }
+                }
+            }
+        }
+
+        return [...new Set(allSchlagworte)]
+    }
 
     const getProfessorDetailsFromId = (searchId) => {
         let professorDetails = {}
 
         for (let themengebietIndex = 0; themengebietIndex < data.length; themengebietIndex++) {
-            for (let o = 0; o < data[themengebietIndex].faecher.length; o++) {
-                let currentFach = data[themengebietIndex].faecher[o]
-                for (let h = 0; h < currentFach.professoren.length; h++) {
-                    if (currentFach.professoren[h].id === searchId) {
-                        professorDetails['name'] = currentFach.professoren[h].name
-                        let professorLinks = []
-                        for (let linkIndex = 0; linkIndex < currentFach.professoren[h].links.length; linkIndex++) {
-                            professorLinks.push(currentFach.professoren[h].links[linkIndex])
-                        }
-                        professorDetails['links'] = professorLinks
-                        return professorDetails
-                    }
+
+            let currentFach = data[themengebietIndex].Unterthemen
+            for (let profIndex = 0; profIndex < currentFach.Professoren.length; profIndex++) {
+                if (currentFach.Professoren[profIndex].Id === searchId) {
+                    professorDetails['name'] = currentFach.Professoren[profIndex].Name
+                    professorDetails['links'] = currentFach.Professoren[profIndex].Links
+                    professorDetails['schlagworte'] = getAllSwForProf(searchId)
+                    professorDetails['Email'] = currentFach.Professoren[profIndex].Email
+                    professorDetails['Kontaktseite'] = currentFach.Professoren[profIndex].Kontaktseite
+                    return professorDetails
                 }
             }
+
         }
         return professorDetails
     }
@@ -56,13 +72,11 @@
         let personIds = []
 
         for (let themengebietIndex = 0; themengebietIndex < data.length; themengebietIndex++) {
-            if (data[themengebietIndex].themengebiet === searchedThemengebiet) {
-                for (let o = 0; o < data[themengebietIndex].faecher.length; o++) {
-                    let currentFach = data[themengebietIndex].faecher[o]
-                    for (let h = 0; h < currentFach.professoren.length; h++) {
-                        let professorId = currentFach.professoren[h].id
-                        personIds.push(professorId)
-                    }
+            if (data[themengebietIndex].Hauptthema === searchedThemengebiet) {
+                let currentFach = data[themengebietIndex].Unterthemen
+                for (let h = 0; h < currentFach.Professoren.length; h++) {
+                    let professorId = currentFach.Professoren[h].Id
+                    personIds.push(professorId)
                 }
             }
         }
@@ -74,13 +88,11 @@
         let personIds = []
 
         for (let themengebietIndex = 0; themengebietIndex < data.length; themengebietIndex++) {
-            for (let o = 0; o < data[themengebietIndex].faecher.length; o++) {
-                let currentFach = data[themengebietIndex].faecher[o]
-                if (data[themengebietIndex].faecher[o].fach === searchedFach) {
-                    for (let h = 0; h < currentFach.professoren.length; h++) {
-                        let professorId = currentFach.professoren[h].id
-                        personIds.push(professorId)
-                    }
+            let currentFach = data[themengebietIndex].Unterthemen
+            if (data[themengebietIndex].Unterthemen.Unterthema === searchedFach) {
+                for (let h = 0; h < currentFach.Professoren.length; h++) {
+                    let professorId = currentFach.Professoren[h].Id
+                    personIds.push(professorId)
                 }
             }
         }
@@ -92,11 +104,27 @@
         let personIds = []
 
         for (let themengebietIndex = 0; themengebietIndex < data.length; themengebietIndex++) {
-            for (let o = 0; o < data[themengebietIndex].faecher.length; o++) {
-                let currentFach = data[themengebietIndex].faecher[o]
-                for (let h = 0; h < currentFach.professoren.length; h++) {
-                    if (currentFach.professoren[h].name === searchedPerson) {
-                        let professorId = currentFach.professoren[h].id
+            let currentFach = data[themengebietIndex].Unterthemen
+            for (let h = 0; h < currentFach.Professoren.length; h++) {
+                if (currentFach.Professoren[h].Name === searchedPerson) {
+                    let professorId = currentFach.Professoren[h].Id
+                    personIds.push(professorId)
+                }
+            }
+        }
+
+        return personIds
+    }
+
+    const getPersonIdsFromSchlagwort = (searchedSchlagwort) => {
+        let personIds = []
+
+        for (let themengebietIndex = 0; themengebietIndex < data.length; themengebietIndex++) {
+            let currentFach = data[themengebietIndex].Unterthemen
+            for (let h = 0; h < currentFach.Professoren.length; h++) {
+                for (let swIndex = 0; swIndex < currentFach.Professoren[h].Schlagworte.length; swIndex++) {
+                    if (currentFach.Professoren[h].Schlagworte[swIndex] === searchedSchlagwort) {
+                        let professorId = currentFach.Professoren[h].Id
                         personIds.push(professorId)
                     }
                 }
@@ -115,6 +143,8 @@
                 foundIds = foundIds.concat(getPersonIdsFromThemengebiet(searchTermItem))
             } else if (faecherArray.indexOf(searchTermItem) > -1) {
                 foundIds = foundIds.concat(getPersonIdsFromFach(searchTermItem))
+            } else if (schlagwoerterArray.indexOf(searchTermItem) > -1) {
+                foundIds = foundIds.concat(getPersonIdsFromSchlagwort(searchTermItem))
             }
         })
         return foundIds
